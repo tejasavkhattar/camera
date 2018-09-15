@@ -3,7 +3,7 @@
 
 // FileSaver saveAs(Blob/File data, optional DOMString filename, optional Boolean disableAutoBOM);
 
-var constraints = { video: { facingMode: "environment" }, audio: false };
+var constraints = { video: { facingMode: "environment" }, audio: true };
 var track = null;
 
 
