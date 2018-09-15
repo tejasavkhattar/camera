@@ -78,8 +78,12 @@ const app = new Clarifai.App({
     //   );
     })
 
+    if (process.env.MODE == 1) {
       var options = {
     key: fs.readFileSync('../pos_test/certs/pos/privkey.pem'),
     cert: fs.readFileSync('../pos_test/certs/pos/fullchain.pem')
   };
-  	https.createServer(options, express_app).listen(8080);
+    https.createServer(options, express_app).listen(8080);
+  } else {
+    express_app.listen(3000)
+  }
