@@ -40,16 +40,6 @@ const app = new Clarifai.App({
     express_app.post("/file", upload.single('img'), function(req,res) {
       // var bs4 = new Buffer(fs.readFileSync("./public/search.png").toString("base64"))
       console.log("here");
-      //
-      // app.models.predict("production",
-      //
-      //             {base64: bs4}).then(
-      //   function(response) {
-      //     console.log(response)
-      //   },
-      //   function(err) {
-      //     console.log(err)
-      //   }
 
       app.models.predict("production", "https://pos.dashvin.me/search.png").then(
         function(response) {
@@ -93,11 +83,3 @@ const app = new Clarifai.App({
     cert: fs.readFileSync('../pos_test/certs/pos/fullchain.pem')
   };
   	https.createServer(options, express_app).listen(8080);
-
-//https.createServer(options, (req, res) => {
-//  res.writeHead(200);
- // res.end('helloi world\n');
-//	req.redirect("/")
-//}).listen(process.env.PORT);
-
-//    express_app.listen(process.env.PORT);
