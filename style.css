@@ -10,6 +10,13 @@ video {
   transform: scaleX(-1);
 }
 
+#camera--view
+{
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+}
+
 #camera, #camera--view, #camera--sensor, #camera--output{
     position: fixed;
     height: 100%;
