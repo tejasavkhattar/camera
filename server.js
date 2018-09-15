@@ -1,5 +1,5 @@
-
-
+require('dotenv').config()
+var https = require("https");
 var express = require("express");
     express_app = express();
     const multer = require('multer')
@@ -51,7 +51,7 @@ const app = new Clarifai.App({
       //     console.log(err)
       //   }
 
-      app.models.predict("production", "https://pos.dashvin.me/3.jpg").then(
+      app.models.predict("production", "https://pos.dashvin.me/search.png").then(
         function(response) {
           console.log(req.hostname + "/search.png")
           var concepts = response.outputs[0].data.concepts
@@ -88,4 +88,16 @@ const app = new Clarifai.App({
     //   );
     })
 
-    express_app.listen(3000);
+      var options = {
+    key: fs.readFileSync('../pos_test/certs/pos/privkey.pem'),
+    cert: fs.readFileSync('../pos_test/certs/pos/fullchain.pem')
+  };
+  	https.createServer(options, express_app).listen(8080);
+
+//https.createServer(options, (req, res) => {
+//  res.writeHead(200);
+ // res.end('helloi world\n');
+//	req.redirect("/")
+//}).listen(process.env.PORT);
+
+//    express_app.listen(process.env.PORT);
