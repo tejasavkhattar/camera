@@ -22,9 +22,12 @@ var express = require("express");
 //Handles file storage when it gets sent into the POST request form.
     var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/')
-    }
-})
+     cb(null, 'public/') } ,
+      filename: function(req, file, cb) {
+        console.log(file)
+        cb(null, Date.now() + ".png");
+      }
+    })
     var upload = multer({ storage: storage })
 
 
@@ -84,7 +87,7 @@ function printCustomer(arrayOfResponses) {
     express_app.post("/file", upload.single('img'), function(req,res) {
 
 //	console.log("file")
-      url = req.file.filename + ".png"
+      url = req.file.filename
       // console.log(url)
       app.models.predict("production", "https://pos.dashvin.me/" + url).then(
         function(response) {
