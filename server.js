@@ -84,9 +84,9 @@ function printCustomer(arrayOfResponses) {
     express_app.get("/", function(req, res) {
       res.sendFile(__dirname + "./index.html");
     })
-
     express_app.post("/file", upload.single('img'), function(req,res) {
 
+//	console.log("file")
       app.models.predict("production", "https://pos.dashvin.me/search.png").then(
         function(response) {
           // console.log(req)
@@ -148,10 +148,10 @@ function printCustomer(arrayOfResponses) {
 
     if (process.env.MODE == 1) {
       var options = {
-    key: fs.readFileSync('../pos_test/certs/pos/privkey.pem'),
-    cert: fs.readFileSync('../pos_test/certs/pos/fullchain.pem')
+    key: fs.readFileSync('./certs/privkey.pem'),
+    cert: fs.readFileSync('./certs/fullchain.pem')
   };
-    https.createServer(options, express_app).listen(8080);
+    https.createServer(options, express_app).listen(process.env.PORT);
   } else {
     express_app.listen(3000)
   }
