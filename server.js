@@ -117,18 +117,19 @@ function printCustomer(arrayOfResponses) {
               balance = letter[1].result.bankAccount.balance
               string += "You have " + balance + " dollars left in your account."
             }
-            break
+            break;
 
           case "b":
             if (letter[1].statusCode == 200) {
               income = letter[1].result.totalIncome
               string += "Your total income is " + income + " dollars."
             }
-            break
+            break;
+
           case"c":
             string += "You've reached C."
+            break;
         }
-        break
         if (string == "") {
           string = "Something went wrong, please try again later."
         }
