@@ -59,7 +59,7 @@ cameraTrigger.onclick = function() {
        contentType: false,
     }).done(function(respond){
       console.log(respond)
-      alert(respond[0].name)
+      alert(respond)
     });
     // track.stop();
 };
