@@ -39,7 +39,7 @@ const app = new Clarifai.App({
  apiKey: 'a11ec80513f94400a2caf2867db4bca6'
 });
 
-function options(method, uri, body = null) {
+function TD_options(method, uri, body = null) {
   return {
     json: true,
     body: body,
@@ -100,10 +100,10 @@ function printCustomer(arrayOfResponses) {
 
 
           if (letter == 'a') {
-            return Promise.all([letter, reqq(options('GET', 'customers/' + initialCustomerId))])
+            return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
 
           } else if (letter == 'b') {
-            return Promise.all([letter, reqq(options('GET', 'accounts/' + "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"))])
+            return Promise.all([letter, reqq(TD_options('GET', 'accounts/' + "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"))])
 
           } else {
             console.log("CC")
