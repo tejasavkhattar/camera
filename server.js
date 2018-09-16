@@ -5,7 +5,7 @@ TD_API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDQlAiLCJ0ZWFtX2lkI
 
 TD_TEAM_TOKEN = "0cecb619-b69d-4246-ac5a-a780111887bf"
 
-initialCustomerId = "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"
+initialCustomerId = "0cecb619-b69d-4246-ac5a-a780111887bf_c18dca28-f10f-4a0a-b905-db636046bd4c"
 
 var https = require("https");
 var express = require("express");
@@ -16,7 +16,8 @@ var express = require("express");
     require('dotenv').config()
 
     const util = require('util') // for printing objects
-    const req = require('request-promise-native');
+    const reqq = require('request-promise-native');
+
 
 //Handles file storage when it gets sent into the POST request form.
     var storage = multer.diskStorage({
@@ -66,9 +67,11 @@ function handleError(err) {
   process.exit(1);
 }
 
-function printCustomer(resp) {
-  console.log(resp)
-
+function printCustomer(arrayOfResponses) {
+  arrayOfResponses[0]
+  arrayOfResponses[1]
+  // console.log(resp)
+  // retunr
   // const cust = resp.result;
   // console.log(resp)
   // console.log("\nCustomer\n- Name: " + cust.givenName + " " + cust.surname);
@@ -86,34 +89,39 @@ function printCustomer(resp) {
 
       app.models.predict("production", "https://pos.dashvin.me/search.png").then(
         function(response) {
+          // console.log(req)
           console.log(req.hostname + "/search.png")
           var concepts = response.outputs[0].data.concepts
           var letter = concepts[0].name
-
+          // console.log(letter)
           // console.log(data)
           // alert("hi")
 
 
 
-          if (letter == a) {
-            return getBalance()
+          if (letter == 'a') {
+            return Promise.all([letter, reqq(options('GET', 'customers/' + initialCustomerId))])
 
-          } else if (letter == b) {
+          } else if (letter == 'b') {
+            return Promise.all([letter, reqq(options('GET', 'accounts/' + "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"))])
+
+          } else {
+            console.log("CC")
           }
         },
         function(err) {
         }
-      ).then()
+      ).then(function(letter, resp) {
+        console.log(letter)
+        res.send(letter[0])
+        return
+
+        // return new Promise();
+      }, handleError)
+
       return
     })
 
-    function getBalance() {
-      (async () => {
-        return await req(options('GET', 'accounts/' + initialCustomerId))
-          .then(printCustomer, handleError)
-      })();
-
-    }
 
 
 
