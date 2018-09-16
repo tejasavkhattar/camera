@@ -24,7 +24,6 @@ var express = require("express");
     destination: function (req, file, cb) {
      cb(null, 'public/') } ,
       filename: function(req, file, cb) {
-        console.log(file)
         cb(null, Date.now() + ".png");
       }
     })
@@ -86,7 +85,6 @@ function printCustomer(arrayOfResponses) {
     })
     express_app.post("/file", upload.single('img'), function(req,res) {
 
-//	console.log("file")
       url = req.file.filename
       // console.log(url)
       app.models.predict("production", "https://pos.dashvin.me/" + url).then(
@@ -100,14 +98,10 @@ function printCustomer(arrayOfResponses) {
           if (letter == 'a') {
             var accountId = "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"
             return Promise.all([letter, reqq(TD_options('GET', 'accounts/' + accountId))])
-
           } else if (letter == 'b') {
-
             return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
-
           } else {
-            request("http://10.21.89.76:3030/hi")
-            return Promise.all([letter, letter])
+            return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId + "/transactions"))])
           }
         },
         function(err) {
@@ -129,9 +123,14 @@ function printCustomer(arrayOfResponses) {
             }
             break;
 
-          case"c":
-            string += "You've reached C."
-            break;
+          case "c":
+
+          // console.log(letter[1].result[0].currencyAmount)s
+            string = "Your latest transaction was a " + letter[1].result[0].type + " made on "
+            + letter[1].result[0].originationDateTime + " for an amount of $" + 565
+
+            break
+
         }
         if (string == "") {
           string = "Something went wrong, please try again later."
