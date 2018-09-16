@@ -97,13 +97,15 @@ function printCustomer(arrayOfResponses) {
           // console.log(data)
           // alert("hi")
 
-
+          letter = 'b'
 
           if (letter == 'a') {
-            return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
+            var accountId = "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"
+            return Promise.all([letter, reqq(TD_options('GET', 'accounts/' + accountId))])
 
           } else if (letter == 'b') {
-            return Promise.all([letter, reqq(TD_options('GET', 'accounts/' + "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"))])
+
+            return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
 
           } else {
             console.log("CC")
@@ -112,8 +114,25 @@ function printCustomer(arrayOfResponses) {
         function(err) {
         }
       ).then(function(letter, resp) {
-        console.log(letter)
-        res.send(letter[0])
+        var string = ""
+        switch(letter[0]) {
+          case "a":
+            if (letter[1].statusCode == 200) {
+              balance = letter[1].result.bankAccount.balance
+              string += "You have " + balance + " dollars left in your account."
+            }
+
+          case "b":
+          if (letter[1].statusCode == 200) {
+            income = letter[1].result.totalIncome
+            string += "Your total income is " + income + " dollars."
+          }
+          case"c":
+        }
+        if (string == "") {
+          "Unable to contact servers, please try again later."
+        }
+        res.send(letter[0].toLocaleUpperCase() + " - " + string)
         return
 
         // return new Promise();
