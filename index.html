@@ -17,12 +17,14 @@
 	</head>
 	<body>
 
-		<audio autoplay>
-		 <source src="./public/greetings.mp3" type="audio/mpeg">
-		</audio>
+
 
 		<!-- Camera -->
 		<main id="camera">
+
+			<iframe src="public/greetings.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+			</iframe>
+
 
 		    <!-- Camera sensor -->
 		    <canvas id="camera--sensor"></canvas>
