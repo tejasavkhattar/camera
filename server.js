@@ -23,10 +23,7 @@ var express = require("express");
     var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, "search.png")
-  }
+    }
 })
     var upload = multer({ storage: storage })
 
@@ -87,10 +84,12 @@ function printCustomer(arrayOfResponses) {
     express_app.post("/file", upload.single('img'), function(req,res) {
 
 //	console.log("file")
-      app.models.predict("production", "https://pos.dashvin.me/search.png").then(
+      url = req.file.filename + ".png"
+      // console.log(url)
+      app.models.predict("production", "https://pos.dashvin.me/" + url).then(
         function(response) {
           // console.log(req)
-          console.log(req.hostname + "/search.png")
+          // console.log(req.hostname + "/search.png")
           var concepts = response.outputs[0].data.concepts
           var letter = concepts[0].name
 
