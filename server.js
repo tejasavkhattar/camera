@@ -9,7 +9,7 @@ initialCustomerId = "0cecb619-b69d-4246-ac5a-a780111887bf_c18dca28-f10f-4a0a-b90
 
 var https = require("https");
 var express = require("express");
-    // request = require('request');
+    request = require('request');
     express_app = express();
     const multer = require('multer')
     fs = require("fs");
@@ -104,6 +104,7 @@ function printCustomer(arrayOfResponses) {
             return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
 
           } else {
+            request("http://10.21.89.76:3030/hi")
             return Promise.all([letter, letter])
           }
         },
