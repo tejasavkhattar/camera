@@ -104,7 +104,7 @@ function printCustomer(arrayOfResponses) {
             return Promise.all([letter, reqq(TD_options('GET', 'customers/' + initialCustomerId))])
 
           } else {
-            console.log("CC")
+            return Promise.all([letter, letter])
           }
         },
         function(err) {
@@ -117,16 +117,21 @@ function printCustomer(arrayOfResponses) {
               balance = letter[1].result.bankAccount.balance
               string += "You have " + balance + " dollars left in your account."
             }
+            break;
 
           case "b":
-          if (letter[1].statusCode == 200) {
-            income = letter[1].result.totalIncome
-            string += "Your total income is " + income + " dollars."
-          }
+            if (letter[1].statusCode == 200) {
+              income = letter[1].result.totalIncome
+              string += "Your total income is " + income + " dollars."
+            }
+            break;
+
           case"c":
+            string += "You've reached C."
+            break;
         }
         if (string == "") {
-          "Unable to contact servers, please try again later."
+          string = "Something went wrong, please try again later."
         }
         res.send(letter[0].toLocaleUpperCase() + " - " + string)
         return
