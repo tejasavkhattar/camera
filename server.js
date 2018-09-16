@@ -93,11 +93,7 @@ function printCustomer(arrayOfResponses) {
           console.log(req.hostname + "/search.png")
           var concepts = response.outputs[0].data.concepts
           var letter = concepts[0].name
-          // console.log(letter)
-          // console.log(data)
-          // alert("hi")
 
-          letter = 'b'
 
           if (letter == 'a') {
             var accountId = "0cecb619-b69d-4246-ac5a-a780111887bf_d62ec0ba-6f0a-447f-a3cd-0c09211fd97a"
